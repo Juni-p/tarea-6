@@ -6,18 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarea 6</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <h1>Bienvenido!</h1>
 
     <form onsubmit="return false">
-    </form>
-    <button id="calcular">calcular</button>
+        <label for="integrantes">Ingrese la cantidad de integrantes de su familia :</label>
+        <input type="number" id="cantidad-integrantes">
+        <button type="submit" id="siguiente">siguiente</button>
 
-    <p id="mas-grande"></p>
-    <p id="mas-joven"></p>
-    <p id="promedio-edad"></p>
+        <div id="inputLabelIntegrantes">
+
+        </div>
+
+        <button id="calcular">calcular</button>
+
+        <div id="datos">
+            <p id="mas-grande"></p>
+            <p id="mas-joven"></p>
+            <p id="promedio-edad"></p>
+        </div>
+
+        <button id="reestablecer" type="reset">reestablecer</button>
+    </form>
+
 
     <script src="main.js"></script>
 </body>

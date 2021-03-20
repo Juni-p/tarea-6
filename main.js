@@ -6,51 +6,65 @@ Al hacer click en "calcular", mostrar en un elemento pre-existente la mayor edad
 Punto bonus: Crear un botón para "empezar de nuevo" que empiece el proceso nuevamente, borrando los inputs ya creados (investigar cómo en MDN).
 */
 
+const $btnSiguiente = document.querySelector( '#siguiente' )
 const $btnCalcular = document.querySelector( '#calcular' )
-const nodoPagina = document.querySelector( 'form' )
+const $btnReestablecer = document.querySelector( '#reestablecer' )
 
-ElementosSegunFamilia()
+$btnSiguiente.onclick = function() {
+    const $cantidadIntegrantes = document.querySelector( '#cantidad-integrantes' ).value
+    const canidadIntegrantes = Number( $cantidadIntegrantes )
 
-/*creo elementos label e input */
-function creacionElementos() {
-    const nuevoDiv = document.createElement( 'div' )
-    const nuevoLabel = document.createElement( 'label' )
-    const nuevoInput = document.createElement( 'input' )
-    
-    /* creo atributo al elemento input */
-    nuevoInput.setAttribute( 'type', 'number')
-    
-    nuevoLabel.textContent = 'Ingrese edad del familiar: '
-    nodoPagina.appendChild( nuevoDiv )
-    nuevoDiv.appendChild( nuevoLabel )
-    nuevoDiv.appendChild( nuevoInput )
-    console.log(nuevoDiv)
+    crearIntegrantes(canidadIntegrantes)
 }
 
-function ElementosSegunFamilia() {
-    const cantidadIntegrantes = Number( prompt( 'Ingrese la cantidad de integrantes en su familia.' ) )
-    const buttonCalcular = document.createElement( 'button' )
-    
-    for( let i = 0; i < cantidadIntegrantes; i++ ){
-        creacionElementos()
+function crearIntegrantes( cantidadIntegrantes ) {
+    for( let i = 0; i < cantidadIntegrantes; i++ ) {
+        crearElementoIntegrante(i)
     }
-    console.log( buttonCalcular)
 }
 
 $btnCalcular.onclick = function() {
-    
-    const edadesDeFamiliares = document.querySelectorAll( 'input' )
-    const arrayDeEdades = []
-    
-    for( let i = 0; i < edadesDeFamiliares.length ; i++){
-        arrayDeEdades.push( Number(edadesDeFamiliares[i].value ))
-    }
-    
-    console.log( arrayDeEdades )
+    edadesIntegrantes = document.querySelectorAll( '.integrante input' )
+    const integrantes = []
 
-    calcularEdadMasGrande( arrayDeEdades )
-    calcularEdadMasBaja( arrayDeEdades )
-    calcularPromedioEdad( arrayDeEdades )
+    for( let i = 0; i < edadesIntegrantes.length; i++) {
+        integrantes.push( Number(edadesIntegrantes[i].value))
+    }
+
+    calcularEdadMasGrande( integrantes )
+    calcularEdadMasBaja( integrantes )
+    calcularPromedioEdad( integrantes )
+}
+
+$btnReestablecer.onclick = function() {
+    const integrantes = document.querySelectorAll( '.integrante' )
+    for( let i = 0; i < integrantes.length; i++) {
+        integrantes[i].remove()
+    }
+
+    const parrafos = document.querySelectorAll( 'p' )
+    for( let i = 0; i < parrafos.length; i++) {
+        parrafos[i].innerText = ''
+    }
+}
+
+function crearElementoIntegrante(indice) {
+    const nuevoDiv = document.createElement( 'div' )
+    nuevoDiv.className = 'integrante'
+
+    console.log(nuevoDiv)
+    
+    const nuevoLabel = document.createElement( 'label' )
+    nuevoLabel.textContent = `ingrese la edad del familiar ${indice + 1} :`
+    
+    const nuevoInput = document.createElement( 'input' )
+    nuevoInput.type = 'number'
+    
+    const integrantes = document.querySelector( '#inputLabelIntegrantes' )
+    
+    integrantes.appendChild( nuevoDiv )
+    nuevoDiv.appendChild( nuevoLabel )
+    nuevoDiv.appendChild( nuevoInput )
 }
 
 function calcularEdadMasGrande( array ) {
